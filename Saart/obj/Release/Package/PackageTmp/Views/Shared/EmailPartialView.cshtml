@@ -1,0 +1,17 @@
+﻿@model IEnumerable<Saart.Models.AdminInformation>
+    @{ 
+        var emil = Model.Where(x => x.Name == "Email").Single();
+        var number = Model.Where(x => x.Name == "Mobile").Single();
+    }
+<ul class="ul-wrapper">
+
+    <li>
+
+
+        <span class="mail2">
+           @emil.Value
+
+        </span>
+    </li>
+    <li><span class="phone2">@number.Value</span></li>
+</ul>

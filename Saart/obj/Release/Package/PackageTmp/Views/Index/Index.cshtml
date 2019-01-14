@@ -1,0 +1,337 @@
+﻿@model  Saart.ViewModel.IndexViewModel
+@{
+    /**/
+
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/Layout.cshtml";
+    int num = 1;
+    int count = 0;
+}
+<nav id="menu" class="navbar">
+    <div class="nav-inner">
+        <div class="navbar-header">
+            <span id="category" class="visible-xs">Kateqoriyalar</span>
+            <button type="button" class="btn btn-navbar navbar-toggle"><i class="fa fa-bars" style="position:relative;right:6%;"></i></button>
+        </div>
+        <div class="navbar-collapse" style="background:white">
+            <ul class="main-navigation">
+                @if (Model.Categories != null && Model.Categories.Count != 0)
+                {
+                    foreach (var category in Model.Categories)
+                    {
+                        <li>
+
+                            <a href="index-2.html" class="parent">@category.Name</a>
+                            <div class="hitarea">
+                                <i class="fa fa-plus responsive-hit" style="cursor:pointer"></i>
+                            </div>
+                            <ul style="display:none;">
+                                @foreach (var subcategory in category.SubCategories)
+                                {
+                                    <li><a href="category.html" style="padding-left:13px;">@subcategory.Name</a></li>
+                                }
+
+                            </ul>
+
+                        </li>
+                    }
+                }
+
+
+
+
+
+
+            </ul>
+        </div>
+    </div>
+</nav>
+
+<div class="container">
+    <div class="mainbanner">
+        <div id="main-banner" class="owl-carousel home-slider">
+            <div class="item"> <a href="#"><img src="~/Content/image/banners/Main-Banner1.jpg" alt="main-banner1" class="img-responsive" /></a> </div>
+            <div class="item"> <a href="#"><img src="~/Content/image/banners/Main-Banner2.jpg" alt="main-banner2" class="img-responsive" /></a> </div>
+            <div class="item"> <a href="#"><img src="~/Content/image/banners/Main-Banner3.jpg" alt="main-banner3" class="img-responsive" /></a> </div>
+        </div>
+    </div>
+</div>
+<div class="container">
+    <div class="Logosoz">
+        <h1 style="font-size: 20px; color: #690b0b;">Kredit kartınız bizi maraqlandırmır!</h1>
+        <p style="color: #690b0b;">
+            Sifarişlərinizi ən doğru, ən sürətli və ən asan şəkildə alırıq. Kredit kartı, təhlükəsizlik problemi yoxdur. Sifarişlərinizi əlavə ödəniş etmədən, 24 saat ərzində ünvanınızda olur.
+
+        </p>
+    </div>
+</div>
+
+<div class="container">
+
+    <div class="row">
+
+        <div id="column-left" class="col-sm-3 hidden-xs column-left">
+            <div class="column-block">
+                <div class="columnblock-title">Kateqoriyalar</div>
+               
+                <div class="category_block">
+                    <ul class="box-category treeview-list treeview">
+
+                            @foreach (var item in Model.Categories)
+                            {
+                                <li>
+                                    <div class="hitarea">
+                                        <i class="fa fa-plus hit-fa" style="cursor:pointer"></i>
+                                    </div>
+                                    <a class="activSub catClick" data-id="@item.Id" style="cursor:pointer">@item.Name</a>
+                                    <ul style="display: none;">
+                                        @foreach (var items in item.SubCategories)
+                                        {
+                                            <li>
+                                                <a class="SubCat" data-id="@items.Id" style="cursor:pointer;padding-left:15px">@items.Name</a>
+                                            </li>
+                                        }
+                                    </ul>
+
+                                </li>
+                            }
+             
+
+                        </ul>
+                </div>
+            </div>
+
+            <div class="banner">
+                <div class="item"> <a href="#"><img src="~/Content/image/banners/LeftBanner.jpg" alt="Left Banner" class="img-responsive" /></a> </div>
+            </div>
+            <h3 class="productblock-title">Ən Son Əlavə Olunanlar</h3>
+            <div class="row special-grid product-grid">
+
+                    @foreach (var item in Model.LastAdd)
+                    {
+                        <div class="col-lg-3 col-md-4 col-sm-6 col-xs-12 product-grid-item">
+                            <div class="product-thumb transition">
+                                <div class="image product-imageblock">
+                                    <a href="@Url.Action("Product", "Product", new { id = item.Id })"><img src="~/Areas/Admin/IMAGES/@item.Files.FirstOrDefault().Sources" title="@item.Name" class="img-responsive" style="height:110px; width:82.5px" /></a>
+
+                                    <div class="button-group">
+                                        <button type="button" class="wishlist" data-toggle="tooltip" title="Add to Wish List"><i class="fa fa-heart-o"></i></button>
+
+
+                                    </div>
+                                </div>
+                                <div class="caption product-detail">
+                                    <h4 class="product-name"> <a href="@Url.Action("Product", "Product", new { id = item.Id })" title="@item.Name">@item.Name</a> </h4>
+                                    <p class="price product-price">
+                                        @if (item.Discount > 0M)
+                                        {
+                                            <span class="price-old" style="font-size:15px;">@item.Price</span>
+                                            @item.Discount
+                                        }
+                                        else
+                                        {
+                                            @item.Price
+
+                                        }
+                                    </p>
+                                    <button type="button" class="addtocart-btn">@Html.ActionLink("Indi Al", "Checkout", "Checkout", new { id = item.Id }, false)</button>
+                                </div>
+
+                            </div>
+                        </div>
+                    }
+
+               
+
+                </div>
+        </div>
+
+
+
+
+
+
+
+
+
+        <div id="content" class="col-sm-9">
+
+            <div class="row category-banner">
+                <div class="col-sm-12 category-image"><img src="~/Content/image/banners/category-banner.jpg" alt="Desktops" title="Desktops" class="img-thumbnail" /></div>
+                <div class="category-page-wrapper" style="position:relative ;transform: translate(1%,30%);">
+                    <div class="col-md-6 list-grid-wrapper">
+                        <div class="col-md-2 text-right sort-wrapper">
+                            <label class="control-label" for="input-sort2">Növlərə görə :</label>
+                            <div class="sort-inner">
+                                <select id="input-sort2" class="form-control">
+                                    <option value="default" selected="selected">Seçilən</option>
+                                    <option value="expensive">Qiymət (Ucuzdan &gt; Bahaya)</option>
+                                    <option value="cheap">Qiymət (Bahadan &gt; Ucuza)</option>
+                                    <option value="discount">Endirimdə olan məhsullar</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                  
+                </div>
+                <br />
+                <div class="grid-list-wrapper" id="productPartialView">
+                    @if (Model != null && Model.Products.Count > 0)
+                    {
+                        foreach (var item in Model.Products)
+                        {
+                            <div class="product-layout product-grid col-lg-3 col-md-4 col-sm-6 col-xs-12">
+                                <div class="product-thumb">
+                                    <div class="image product-imageblock">
+                                        <a style="height:289px" href="@Url.Action("Product","Product",new {id=item.Id})">
+                                            <img src="~/Areas/Admin/IMAGES/@item.Files.FirstOrDefault().Sources" alt="women's New Wine is an alcoholic stores" title="" class="img-responsive --custom_width img-responsive" style="margin: 0 auto;width:100%;height:100%; text-align:center!important" />
+                                        </a>
+                                        <div class="button-group">
+                                            <button type="button" class="wishlist" data-toggle="tooltip" title="Add to Wish List"><i class="fa fa-heart-o"></i></button>
+                                            <button type="button" class="addtocart-btn">İndi al</button>
+                                        </div>
+                                        @if (Request.Cookies["Cards"] != null && !string.IsNullOrEmpty(Request.Cookies["Cards"].Value))
+                                        {
+                                            var arr = Request.Cookies["Cards"].Value.Split(' ');
+                                            bool res = false;
+                                            foreach (var items in arr)
+                                            {
+                                                if (items == item.Id.ToString())
+                                                {
+                                                    res = true;
+                                                }
+
+
+                                            }
+                                            if (res)
+                                            {
+                                                <div style="color:red" data-id="@item.Id" class="addtowl btn">
+                                                    <i class="fas fa-shopping-cart"></i>
+                                                </div>
+                                            }
+                                            else
+                                            {
+                                                <div data-id="@item.Id" class="addtowl btn">
+                                                    <i class="fas fa-shopping-cart"></i>
+                                                </div>
+                                            }
+                                        }
+                                        else
+                                        {
+                                            <div data-id="@item.Id" class="addtowl btn">
+                                                <i class="fas fa-shopping-cart"></i>
+                                            </div>
+                                        }
+
+
+                                        <div class="btn">@Html.ActionLink("Indi al", "Checkout", "Checkout", new { id = item.Id }, false)</div>
+                                    </div>
+                                    <div class="caption product-detail">
+                                        <h4 class="product-name"> <a href="@Url.Action("Product","Product",new {id=item.Id})"> @item.Title </a> </h4>
+                                        <p class="product-desc">
+                                            @item.Description
+                                        </p>
+
+
+                                        <p class="price product-price">
+
+                                            @if (item.Discount > 0M&&item.Discount!=item.Price)
+                                            {
+                                                <span class="price-old" style="font-size:15px;">@item.Price</span>
+                                                <span>@item.Discount AZN</span>
+                                            }
+                                            else
+                                            {
+                                                <span>@item.Price AZN</span>
+
+
+                                            }
+
+                                        </p>
+
+                                    </div>
+
+                                </div>
+                            </div>
+                        }
+                    }
+                    else
+                    {
+                        <h1 style="text-align:center" class="alert alert-danger"> Məhsul tapılmadı!</h1>
+                    }
+
+
+                </div>
+                <div class="category-page-wrapper">
+                    <div class="result-inner">Növbəti səhifə</div>
+                    <div class="pagination-inner">
+                        <ul class="pagination">
+                            @for (int i = 0; i < ViewBag.count; i++)
+                            {
+                            <li class="active btnPagination" data-id="@count"><span>@num</span></li>
+                                num++;
+                                count++;
+                            }
+                            
+                           
+                          
+                           
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+@section indexScript{
+    
+<script>
+    let carCountfunc = function (element) {
+        var Id = $(element).attr("data-id");
+        console.log(Id);
+        $.ajax({
+            url: "/Card/AddProductToCookie/",
+            type: "POST",
+            data: { id: Id },
+            success: function (response) {
+                console.log(response);
+                if (response !== null) {
+                    $("#headerRight").html(response);
+                } else {
+                    console.log("error error error");
+                }
+            }
+
+        });
+
+    }
+    //$(document).ready(function () {
+    //    carCountfunc();
+    //})
+
+    $(".addtowl").click(function () {
+        if ($(this).css("color") === "rgb(255, 0, 0)") {
+            swal("Siz Bu Mehsuldan Artiq Secmisiniz");
+            return;
+        }
+        console.log($(this).css("color"));
+        if ($(this).css("color") === "rgb(255, 255, 255)") {
+            carCountfunc($(this));
+            $(this).css({ "color": "red" });
+        }
+
+
+
+        // console.log($(this).css("color"));
+
+    });
+
+</script>
+    
+    }
+
+
+
+

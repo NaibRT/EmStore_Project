@@ -1,0 +1,131 @@
+﻿@model IEnumerable<Saart.Models.Product>
+
+
+
+@if (Model != null && Model.Count() > 0)
+{
+    foreach (var item in Model)
+    {
+        <div class="product-layout product-grid col-lg-3 col-md-4 col-sm-6 col-xs-12">
+            <div class="product-thumb">
+                <div class="image product-imageblock">
+                    <a href="@Url.Action("Product","Product",new {id=item.Id})">
+                        <img src="~/Areas/Admin/IMAGES/@item.Files.FirstOrDefault().Sources" alt="women's New Wine is an alcoholic stores" title="" class=" --custom_width" style="width:217px;height:289px" />
+                    </a>
+                    <div class="button-group">
+                        <button type="button" class="wishlist" data-toggle="tooltip" title="Add to Wish List"><i class="fa fa-heart-o"></i></button>
+                        <button type="button" class="addtocart-btn">İndi al</button>
+                    </div>
+                    @if (Request.Cookies["Cards"] != null && !string.IsNullOrEmpty(Request.Cookies["Cards"].Value))
+                    {
+                        var arr = Request.Cookies["Cards"].Value.Split(' ');
+                        bool res = false;
+                        foreach (var items in arr)
+                        {
+                            if (items == item.Id.ToString())
+                            {
+                                res = true;
+                            }
+
+
+                        }
+                        if (res)
+                        {
+                            <div style="color:red" data-id="@item.Id" class="addtowl btn">
+                                <i class="fas fa-shopping-cart"></i>
+                            </div>
+                        }
+                        else
+                        {
+                            <div data-id="@item.Id" class="addtowl btn">
+                                <i class="fas fa-shopping-cart"></i>
+                            </div>
+                        }
+                    }
+                    else
+                    {
+                        <div data-id="@item.Id" class="addtowl btn">
+                            <i class="fas fa-shopping-cart"></i>
+                        </div>
+                    }
+
+
+                    <div class="btn">@Html.ActionLink("Indi al", "Checkout", "Checkout", new { id = item.Id }, false)</div>
+                </div>
+                <div class="caption product-detail">
+                    <h4 class="product-name"> <a href="@Url.Action("Product","Product",new {id=item.Id})"> @item.Title </a> </h4>
+                    <p class="product-desc">
+                        @item.Description
+                    </p>
+
+
+                    <p class="price product-price">
+
+                        @if (item.Discount > 0M&&item.Discount!=item.Price)
+                        {
+                            <span class="price-old" style="font-size:15px;">@item.Price</span>
+                            <span>@item.Discount AZN</span>
+                        }
+                        else
+                        {
+                            <span>@item.Price AZN</span>
+
+
+                        }
+
+                    </p>
+
+                </div>
+
+            </div>
+        </div>
+    }
+}
+else
+{
+    <h1 style="text-align:center" class="alert alert-danger">Yazdığınız məzmunda məhsul tapılmadı!</h1>
+}
+
+
+    @*<script>
+    let carCountfunc = function (element) {
+        var Id = $(element).attr("data-id");
+        console.log(Id);
+        $.ajax({
+            url: "/Card/AddProductToCookie/",
+            type: "POST",
+            data: { id: Id },
+            success: function (response) {
+                console.log(response);
+                if (response !== null) {
+                    $("#headerRight").html(response);
+                } else {
+                    console.log("error error error");
+                }
+            }
+
+        });
+
+    }
+    //$(document).ready(function () {
+    //    carCountfunc();
+    //})
+
+    $(".addtowl").click(function () {
+        if ($(this).css("color") === "rgb(255, 0, 0)") {
+            swal("Siz Bu Mehsuldan Artiq Secmisiniz");
+            return;
+        }
+        console.log($(this).css("color"));
+        if ($(this).css("color") === "rgb(255, 255, 255)") {
+            carCountfunc($(this));
+            $(this).css({ "color": "red" });
+        }
+
+
+
+        // console.log($(this).css("color"));
+
+    });
+
+    </script>*@

@@ -1,0 +1,33 @@
+﻿@model IEnumerable<Saart.Models.Category>
+@{
+    ViewBag.Title = "Create";
+    Layout = "~/Areas/Admin/Views/Shared/_AdminLayout.cshtml";
+}
+
+<form action="~/Admin/AdminSubCategory/Create" method="post" enctype="multipart/form-data">
+    <div class="form-group">
+        <label for="forName">Alt Kateqoriya Adı</label>
+        <input type="text" class="form-control" id="forName" placeholder="" name="Name">
+        <label for="CategoryId">Kateqoriya Seç</label>
+        <select name="Id" class="form-control " style="padding:0px !important">
+
+            @foreach (var item in Model)
+            {
+
+                <option value="@item.Id">@item.Name</option>
+            }
+        </select>
+
+        
+
+        
+
+    </div>
+    <button type="submit" class="btn btn-info">Yarat!</button>
+    <button class="btn btn-link">
+        <a href="@Url.Action("Index","AdminSubCategory")">Alt kateqoriya səhifəsinə qayıt</a>
+    </button>
+
+
+</form>
+

@@ -1,0 +1,49 @@
+﻿@model IEnumerable<Saart.Models.SubCategory>
+@{
+    Layout = "~/Areas/Admin/Views/Shared/_AdminLayout.cshtml";
+}
+
+<table class="table table-hover table-bordered" style="text-align:center">
+
+    <a class="btn btn-info" style="text-align:center;margin-bottom: 20px;margin-top: 4px" href=@Url.Action("Create","AdminSubCategory")>Alt Kateqoriya Yarat</a>
+
+    <thead>
+        <tr>
+            <th scope="col" style="background:#336cc7">ID</th>
+            <th scope="col" style="background:#336cc7">Adı</th>
+            <th scope="col" style="background:#336cc7">Kateqoriyası</th>
+            <th scope="col" style="background:#336cc7">Yenilə</th>
+            <th scope="col" style="background:#336cc7">Status</th>
+
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+        <tr>
+
+            <td>@item.Id</td>
+            <td>@item.Name</td>
+            <td>@item.Category.Name</td>
+
+            <td>
+                <a class="btn btn-info" href=@Url.Action("Update","AdminSubCategory",new { id = item.Id })>Yenilə</a>
+            </td>
+            <td>
+                @if (item.Status == false)
+                {
+                    <a class="btn btn-danger" href=@Url.Action("Delete","AdminSubCategory",new { id = item.Id })>Aktiv Deyil</a>
+                }
+                else
+                {
+                    <a class="btn btn-primary" href=@Url.Action("Delete","AdminSubCategory",new { id = item.Id })>Aktivdir</a>
+                }
+
+            </td>
+        </tr>
+        }
+
+
+    </tbody>
+</table>
+

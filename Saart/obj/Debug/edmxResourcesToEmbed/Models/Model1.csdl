@@ -1,0 +1,317 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="SaartModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+  <EntityType Name="Basket">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="CustomerId" Type="Int32" />
+    <Property Name="ProductId" Type="Int32" />
+    <NavigationProperty Name="Customer" Relationship="Self.FK__Baskets__Custome__276EDEB3" FromRole="Baskets" ToRole="Customers" />
+    <NavigationProperty Name="Product" Relationship="SaartModel.FK__Baskets__Product__286302EC" FromRole="Basket" ToRole="Product" />
+  </EntityType>
+  <EntityType Name="Category">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <NavigationProperty Name="CategoryContexts" Relationship="Self.FK__CategoryC__Categ__20C1E124" FromRole="Categories" ToRole="CategoryContext" />
+    <NavigationProperty Name="SubCategories" Relationship="Self.FK__SubCatego__Categ__1A14E395" FromRole="Categories" ToRole="SubCategories" />
+  </EntityType>
+  <EntityType Name="CategoryContext">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="LanguageId" Type="Int32" />
+    <Property Name="CategoryId" Type="Int32" />
+    <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <NavigationProperty Name="Category" Relationship="Self.FK__CategoryC__Categ__20C1E124" FromRole="CategoryContext" ToRole="Categories" />
+    <NavigationProperty Name="Language" Relationship="Self.FK__CategoryC__Langu__1FCDBCEB" FromRole="CategoryContext" ToRole="Languages" />
+  </EntityType>
+  <EntityType Name="Customer">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Name" Type="String" MaxLength="25" FixedLength="false" Unicode="true" />
+    <Property Name="Surname" Type="String" MaxLength="30" FixedLength="false" Unicode="true" />
+    <Property Name="Phone" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+    <Property Name="Email" Type="String" MaxLength="35" FixedLength="false" Unicode="true" />
+    <Property Name="Password" Type="String" MaxLength="25" FixedLength="false" Unicode="true" />
+    <NavigationProperty Name="Baskets" Relationship="Self.FK__Baskets__Custome__276EDEB3" FromRole="Customers" ToRole="Baskets" />
+  </EntityType>
+  <EntityType Name="File">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="ProductId" Type="Int32" />
+    <Property Name="Sources" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <NavigationProperty Name="Product" Relationship="SaartModel.FK__Files__ProductId__2F10007B" FromRole="File" ToRole="Product" />
+  </EntityType>
+  <EntityType Name="Language">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Name" Type="String" MaxLength="10" FixedLength="false" Unicode="true" />
+    <NavigationProperty Name="CategoryContexts" Relationship="Self.FK__CategoryC__Langu__1FCDBCEB" FromRole="Languages" ToRole="CategoryContext" />
+    <NavigationProperty Name="ProductContexts" Relationship="Self.FK__ProductCo__Langu__2B3F6F97" FromRole="Languages" ToRole="ProductContext" />
+    <NavigationProperty Name="SubCategoryContexts" Relationship="Self.FK__SubCatego__Langu__239E4DCF" FromRole="Languages" ToRole="SubCategoryContext" />
+  </EntityType>
+  <EntityType Name="ProductContext">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="LanguageId" Type="Int32" />
+    <Property Name="ProductId" Type="Int32" />
+    <Property Name="ProductName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="ProductDescription" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <NavigationProperty Name="Language" Relationship="Self.FK__ProductCo__Langu__2B3F6F97" FromRole="ProductContext" ToRole="Languages" />
+    <NavigationProperty Name="Product" Relationship="SaartModel.FK__ProductCo__Produ__2C3393D0" FromRole="ProductContext" ToRole="Product" />
+  </EntityType>
+  <EntityType Name="SoldProduct">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Count" Type="Int32" />
+    <Property Name="ProductId" Type="Int32" />
+    <NavigationProperty Name="Product" Relationship="SaartModel.FK__SoldProdu__Produ__3C69FB99" FromRole="SoldProduct" ToRole="Product" />
+  </EntityType>
+  <EntityType Name="SubCategory">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="CategoryID" Type="Int32" />
+    <NavigationProperty Name="Category" Relationship="Self.FK__SubCatego__Categ__1A14E395" FromRole="SubCategories" ToRole="Categories" />
+    <NavigationProperty Name="SubCategoryContexts" Relationship="Self.FK__SubCatego__SubCa__24927208" FromRole="SubCategories" ToRole="SubCategoryContext" />
+  </EntityType>
+  <EntityType Name="SubCategoryContext">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="LanguageId" Type="Int32" />
+    <Property Name="SubCategoryId" Type="Int32" />
+    <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <NavigationProperty Name="Language" Relationship="Self.FK__SubCatego__Langu__239E4DCF" FromRole="SubCategoryContext" ToRole="Languages" />
+    <NavigationProperty Name="SubCategory" Relationship="Self.FK__SubCatego__SubCa__24927208" FromRole="SubCategoryContext" ToRole="SubCategories" />
+  </EntityType>
+  <EntityType Name="sysdiagram">
+    <Key>
+      <PropertyRef Name="diagram_id" />
+    </Key>
+    <Property Name="name" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="principal_id" Type="Int32" Nullable="false" />
+    <Property Name="diagram_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="version" Type="Int32" />
+    <Property Name="definition" Type="Binary" MaxLength="Max" FixedLength="false" />
+  </EntityType>
+  <Association Name="FK__Baskets__Custome__276EDEB3">
+    <End Role="Customers" Type="Self.Customer" Multiplicity="0..1" />
+    <End Role="Baskets" Type="Self.Basket" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Customers">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Baskets">
+        <PropertyRef Name="CustomerId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__CategoryC__Categ__20C1E124">
+    <End Role="Categories" Type="Self.Category" Multiplicity="0..1" />
+    <End Role="CategoryContext" Type="Self.CategoryContext" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Categories">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="CategoryContext">
+        <PropertyRef Name="CategoryId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__SubCatego__Categ__1A14E395">
+    <End Role="Categories" Type="Self.Category" Multiplicity="0..1" />
+    <End Role="SubCategories" Type="Self.SubCategory" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Categories">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="SubCategories">
+        <PropertyRef Name="CategoryID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__CategoryC__Langu__1FCDBCEB">
+    <End Role="Languages" Type="Self.Language" Multiplicity="0..1" />
+    <End Role="CategoryContext" Type="Self.CategoryContext" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Languages">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="CategoryContext">
+        <PropertyRef Name="LanguageId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__ProductCo__Langu__2B3F6F97">
+    <End Role="Languages" Type="Self.Language" Multiplicity="0..1" />
+    <End Role="ProductContext" Type="Self.ProductContext" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Languages">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="ProductContext">
+        <PropertyRef Name="LanguageId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__SubCatego__Langu__239E4DCF">
+    <End Role="Languages" Type="Self.Language" Multiplicity="0..1" />
+    <End Role="SubCategoryContext" Type="Self.SubCategoryContext" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Languages">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="SubCategoryContext">
+        <PropertyRef Name="LanguageId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__SubCatego__SubCa__24927208">
+    <End Role="SubCategories" Type="Self.SubCategory" Multiplicity="0..1" />
+    <End Role="SubCategoryContext" Type="Self.SubCategoryContext" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="SubCategories">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="SubCategoryContext">
+        <PropertyRef Name="SubCategoryId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="SaartEntities" annotation:LazyLoadingEnabled="true">
+    <EntitySet Name="Baskets" EntityType="Self.Basket" />
+    <EntitySet Name="Categories" EntityType="Self.Category" />
+    <EntitySet Name="CategoryContexts" EntityType="Self.CategoryContext" />
+    <EntitySet Name="Customers" EntityType="Self.Customer" />
+    <EntitySet Name="Files" EntityType="Self.File" />
+    <EntitySet Name="Languages" EntityType="Self.Language" />
+    <EntitySet Name="ProductContexts" EntityType="Self.ProductContext" />
+    <EntitySet Name="SoldProducts" EntityType="Self.SoldProduct" />
+    <EntitySet Name="SubCategories" EntityType="Self.SubCategory" />
+    <EntitySet Name="SubCategoryContexts" EntityType="Self.SubCategoryContext" />
+    <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagram" />
+    <AssociationSet Name="FK__Baskets__Custome__276EDEB3" Association="Self.FK__Baskets__Custome__276EDEB3">
+      <End Role="Customers" EntitySet="Customers" />
+      <End Role="Baskets" EntitySet="Baskets" />
+    </AssociationSet>
+    <AssociationSet Name="FK__CategoryC__Categ__20C1E124" Association="Self.FK__CategoryC__Categ__20C1E124">
+      <End Role="Categories" EntitySet="Categories" />
+      <End Role="CategoryContext" EntitySet="CategoryContexts" />
+    </AssociationSet>
+    <AssociationSet Name="FK__SubCatego__Categ__1A14E395" Association="Self.FK__SubCatego__Categ__1A14E395">
+      <End Role="Categories" EntitySet="Categories" />
+      <End Role="SubCategories" EntitySet="SubCategories" />
+    </AssociationSet>
+    <AssociationSet Name="FK__CategoryC__Langu__1FCDBCEB" Association="Self.FK__CategoryC__Langu__1FCDBCEB">
+      <End Role="Languages" EntitySet="Languages" />
+      <End Role="CategoryContext" EntitySet="CategoryContexts" />
+    </AssociationSet>
+    <AssociationSet Name="FK__ProductCo__Langu__2B3F6F97" Association="Self.FK__ProductCo__Langu__2B3F6F97">
+      <End Role="Languages" EntitySet="Languages" />
+      <End Role="ProductContext" EntitySet="ProductContexts" />
+    </AssociationSet>
+    <AssociationSet Name="FK__SubCatego__Langu__239E4DCF" Association="Self.FK__SubCatego__Langu__239E4DCF">
+      <End Role="Languages" EntitySet="Languages" />
+      <End Role="SubCategoryContext" EntitySet="SubCategoryContexts" />
+    </AssociationSet>
+    <AssociationSet Name="FK__SubCatego__SubCa__24927208" Association="Self.FK__SubCatego__SubCa__24927208">
+      <End Role="SubCategories" EntitySet="SubCategories" />
+      <End Role="SubCategoryContext" EntitySet="SubCategoryContexts" />
+    </AssociationSet>
+    <EntitySet Name="Products" EntityType="SaartModel.Product" />
+    <AssociationSet Name="FK__Baskets__Product__286302EC" Association="SaartModel.FK__Baskets__Product__286302EC">
+      <End Role="Product" EntitySet="Products" />
+      <End Role="Basket" EntitySet="Baskets" />
+    </AssociationSet>
+    <AssociationSet Name="FK__Files__ProductId__2F10007B" Association="SaartModel.FK__Files__ProductId__2F10007B">
+      <End Role="Product" EntitySet="Products" />
+      <End Role="File" EntitySet="Files" />
+    </AssociationSet>
+    <AssociationSet Name="FK__ProductCo__Produ__2C3393D0" Association="SaartModel.FK__ProductCo__Produ__2C3393D0">
+      <End Role="Product" EntitySet="Products" />
+      <End Role="ProductContext" EntitySet="ProductContexts" />
+    </AssociationSet>
+    <AssociationSet Name="FK__SoldProdu__Produ__3C69FB99" Association="SaartModel.FK__SoldProdu__Produ__3C69FB99">
+      <End Role="Product" EntitySet="Products" />
+      <End Role="SoldProduct" EntitySet="SoldProducts" />
+    </AssociationSet>
+  </EntityContainer>
+  <EntityType Name="Product">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Count" Type="Int32" />
+    <Property Name="Price" Type="Decimal" Precision="19" Scale="4" Nullable="false" />
+    <Property Name="Gender" Type="String" MaxLength="10" FixedLength="false" Unicode="true" />
+    <NavigationProperty Name="Baskets" Relationship="SaartModel.FK__Baskets__Product__286302EC" FromRole="Product" ToRole="Basket" />
+    <NavigationProperty Name="Files" Relationship="SaartModel.FK__Files__ProductId__2F10007B" FromRole="Product" ToRole="File" />
+    <NavigationProperty Name="ProductContexts" Relationship="SaartModel.FK__ProductCo__Produ__2C3393D0" FromRole="Product" ToRole="ProductContext" />
+    <NavigationProperty Name="SoldProducts" Relationship="SaartModel.FK__SoldProdu__Produ__3C69FB99" FromRole="Product" ToRole="SoldProduct" />
+  </EntityType>
+  <Association Name="FK__Baskets__Product__286302EC">
+    <End Type="SaartModel.Product" Role="Product" Multiplicity="0..1" />
+    <End Type="SaartModel.Basket" Role="Basket" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Product">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Basket">
+        <PropertyRef Name="ProductId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__Files__ProductId__2F10007B">
+    <End Type="SaartModel.Product" Role="Product" Multiplicity="0..1" />
+    <End Type="SaartModel.File" Role="File" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Product">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="File">
+        <PropertyRef Name="ProductId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__ProductCo__Produ__2C3393D0">
+    <End Type="SaartModel.Product" Role="Product" Multiplicity="0..1" />
+    <End Type="SaartModel.ProductContext" Role="ProductContext" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Product">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="ProductContext">
+        <PropertyRef Name="ProductId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__SoldProdu__Produ__3C69FB99">
+    <End Type="SaartModel.Product" Role="Product" Multiplicity="0..1" />
+    <End Type="SaartModel.SoldProduct" Role="SoldProduct" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Product">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="SoldProduct">
+        <PropertyRef Name="ProductId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+</Schema>

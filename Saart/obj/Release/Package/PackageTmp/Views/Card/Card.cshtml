@@ -1,0 +1,69 @@
+﻿@model Saart.ViewModel.CardViewModel
+@{
+    ViewBag.Title = "Card";
+    Layout = "~/Views/Shared/Layout.cshtml";
+}
+<div class="container">
+    <ul class="breadcrumb">
+        <li></li>
+        <li></li>
+    </ul>
+    <div class="row">
+        <div id="column-left" class="col-sm-3 hidden-xs column-left">
+            <div class="column-block">
+                <div class="columnblock-title">Kateqoriyalar</div>
+
+                <div class="category_block">
+                    <ul class="box-category treeview-list treeview">
+                        @foreach (var item in Model.Categories)
+                        {
+                            <li>
+                                <div class="hitarea">
+                                    <i class="fa fa-plus hit-fa" style="cursor:pointer"></i>
+                                </div>
+                                <a class="activSub" data-id="@item.Id" style="cursor:pointer" href="@Url.Action("PostIndex","Index",new {id=item.Id,name="cat" })">@item.Name</a>
+                                <ul style="display: none;">
+                                    @foreach (var items in item.SubCategories)
+                                    {
+                                        <li>
+                                            <a data-id="@items.Id" style="cursor:pointer;padding-left:15px" href="@Url.Action("PostIndex","Index",new {id=items.Id,name="subcat" })">@items.Name</a>
+                                        </li>
+                                    }
+                                </ul>
+
+                            </li>
+                        }
+
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div id="cardProduct" class="col-9 ">
+
+            </div>
+        </div>
+    </div>
+
+@section cardScript{
+<script>
+    $("#removeSelectedItem").click(function () {
+        var Id = $(this).data("id");
+        $.ajax({
+            url: "/Card/CardPartialView/",
+            type: "POST",
+            data: { id: Id },
+            success: function (response) {
+                console.log(response);
+                if (response !== null) {
+                    $("#cardProduct").html(response);
+                }
+                else {
+                    console.log("errori,errori,errori");
+                }
+            }
+
+        });
+
+    });
+</script>
+}

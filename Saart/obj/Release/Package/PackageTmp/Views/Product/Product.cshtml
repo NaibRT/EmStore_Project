@@ -1,0 +1,280 @@
+﻿@model Saart.ViewModel.ProductControllerViewModel
+@{
+    ViewBag.Title = "Product";
+    Layout = "~/Views/Shared/Layout.cshtml";
+}
+<div class="container">
+    <ul class="breadcrumb">
+        <li>
+
+        </li>
+    </ul>
+    <div class="row">
+        <div id="column-left" class="col-sm-3 hidden-xs column-left">
+            <div class="column-block">
+                <div class="columnblock-title">Kateqoriyalar</div>
+
+                <div class="category_block">
+                    <ul class="box-category treeview-list treeview">
+                        @foreach (var item in Model.Categories)
+                        {
+                            <li>
+                                <div class="hitarea">
+                                    <i class="fa fa-plus hit-fa" style="cursor:pointer"></i>
+                                </div>
+                                <a class="activSub" data-id="@item.Id" style="cursor:pointer" href="@Url.Action("PostIndex","Index",new {id=item.Id,name="cat" })" >@item.Name </a>
+                                <ul style="display: none;">
+                                    @foreach (var items in item.SubCategories)
+                                    {
+                                        <li>
+                                            <a  data-id="@items.Id" style="cursor:pointer;padding-left:15px "href="@Url.Action("PostIndex","Index",new {id=items.Id,name="subcat" })">@items.Name</a>
+                                        </li>
+                                    }
+                                </ul>
+
+                            </li>
+                        }
+
+                    </ul>
+                </div>
+            </div>
+
+            <div class="banner">
+                <div class="item"> <a href="#"><img src="~/Content/image/banners/LeftBanner.jpg" alt="Left Banner" class="img-responsive" /></a> </div>
+            </div>
+            <h3 class="productblock-title">Ən Son Əlavə Olunanlar</h3>
+            <div class="row special-grid product-grid">
+
+                @foreach (var item in Model.BestSeller)
+                {
+                    <div class="col-lg-3 col-md-4 col-sm-6 col-xs-12 product-grid-item">
+                        <div class="product-thumb transition">
+                            <div class="image product-imageblock">
+                                <a href="@Url.Action("Product","Product",new { id=item.Id})"><img src="~/Areas/Admin/IMAGES/@item.Files.FirstOrDefault().Sources" title="@item.Name" class="img-responsive" style="height:110px; width:82.5px" /></a>
+
+                                <div class="button-group">
+                                    <button type="button" class="wishlist" data-toggle="tooltip" title="Add to Wish List"><i class="fa fa-heart-o"></i></button>
+
+
+                                </div>
+                            </div>
+                            <div class="caption product-detail">
+                                <h4 class="product-name"> <a href="@Url.Action("Product","Product",new { id=item.Id})" title="@item.Name">@item.Name</a> </h4>
+                                <p class="price product-price">
+                                    @if (item.Discount > 0M)
+                                    {
+                                        <span class="price-old" style="font-size:15px;">@item.Price</span>
+                                        @item.Discount
+                                    }
+                                    else
+                                    {
+                                        @item.Price
+
+                                    }
+                                </p>
+                                <button type="button" class="addtocart-btn">@Html.ActionLink("Indi Al", "Checkout", "Checkout", new { id = item.Id }, false)</button>
+                            </div>
+
+                        </div>
+                    </div>
+                }
+
+
+
+            </div>
+        </div>
+
+
+
+
+        <div id="content" class="col-sm-9">
+            <div class="row">
+                <div class="col-sm-6">
+                    <div class="thumbnails">
+                        <div><a class="thumbnail" href="~/Areas/Admin/IMAGES/@Model.Product.Files.First().Sources" title="lorem ippsum dolor dummy"><img src="~/Areas/Admin/IMAGES/@Model.Product.Files.First().Sources" title="lorem ippsum dolor dummy" alt="lorem ippsum dolor dummy" /></a></div>
+                        <div id="product-thumbnail" class="owl-carousel">
+                            @foreach (var item in Model.Product.Files)
+                            {
+                                <div class="item">
+                                    <div class="image-additional">
+                                        <a class="thumbnail" href="~/Areas/Admin/IMAGES/@Model.Product.Files.First().Sources" title="lorem ippsum dolor dummy"style="height:70px;width:70px" >
+                                            <img src="~/Areas/Admin/IMAGES/@item.Sources" title="lorem ippsum dolor dummy" alt="lorem ippsum dolor dummy" style="height:100%;width:100%" />
+                                        </a>
+                                    </div>
+                                </div>
+                            }
+
+
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-6">
+                    <h1 class="productpage-title">@Model.Product.Name</h1>
+                    <div class="rating product">
+                        <hr>
+                        <!-- AddThis Button BEGIN -->
+                        <div class="addthis_toolbox addthis_default_style"><a class="addthis_button_facebook_like"></a> <a class="addthis_button_tweet"></a> <a class="addthis_button_pinterest_pinit"></a> <a class="addthis_counter addthis_pill_style"></a></div>
+                        <!-- AddThis Button END -->
+                    </div>
+                    <ul class="list-unstyled productinfo-details-top">
+                        <li>
+                            <h2 class="productpage-price">@Model.Product.Price AZN</h2>
+                        </li>
+                        <li><span class="productinfo-tax">Çatdırılma: pulsuz</span></li>
+                    </ul>
+                    <hr>
+                    <ul class="list-unstyled product_info">
+                        <li>
+                            <label>Brand:</label>
+                            <span> @Model.Product.SubCategory.Name</span>
+                        </li>
+                        <li>
+                            <label>Məhsulun kodu:</label>
+                            <span>@Model.Product.Id@Model.Product.SubCategory.Name</span>
+                        </li>
+                        <li>
+                            <label>Stokda:</label>
+                            <span> @Model.Product.Count Ədəd</span>
+                        </li>
+                    </ul>
+                    <hr>
+                    <p class="product-desc">
+                        @Model.Product.Description
+
+                    </p>
+                    <div id="product">
+                        <div class="form-group">
+                            <div class="btn-group">
+                                @if (Request.Cookies["Cards"] != null && !string.IsNullOrEmpty(Request.Cookies["Cards"].Value))
+                                {
+                                    var arr = Request.Cookies["Cards"].Value.Split(' ');
+                                    bool res = false;
+                                    foreach (var items in arr)
+                                    {
+                                        if (items == Model.Product.Id.ToString())
+                                        {
+                                            res = true;
+                                        }
+
+
+                                    }
+                                    if (res)
+                                    {
+                                        <div style="color:red" data-id="@Model.Product.Id" class="addtowl btn">
+                                            <i class="fas fa-shopping-cart"></i>
+                                        </div>
+
+                                    }
+                                    else
+                                    {
+                                        <div data-id="@Model.Product.Id" class="addtowl btn">
+                                            <i class="fas fa-shopping-cart"></i>
+                                        </div>
+
+                                    }
+                                }
+                                else
+                                {
+                                    <div data-id="@Model.Product.Id" class="addtowl btn">
+                                        <i class="fas fa-shopping-cart"></i>
+                                    </div>
+                                }
+                                <button type="button" class="btn btn-primary btn-lg btn-block addtocart">@Html.ActionLink("Indi Al", "Checkout", "Checkout", new { id = Model.Product.Id }, false)</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="productinfo-tab">
+
+                <div class="tab-content">
+                    <div class="tab-pane active" id="tab-description">
+                        <div class="cpt_product_description ">
+
+                        </div>
+                        <!-- cpt_container_end -->
+                    </div>
+                    <div class="tab-pane" id="tab-review">
+                        <form class="form-horizontal">
+                            <div id="review"></div>
+                            <h2>Write a review</h2>
+                            <div class="form-group required">
+                                <div class="col-sm-12">
+                                    <label class="control-label" for="input-name">Your Name</label>
+                                    <input type="text" name="name" value="" id="input-name" class="form-control" />
+                                </div>
+                            </div>
+                            <div class="form-group required">
+                                <div class="col-sm-12">
+                                    <label class="control-label" for="input-review">Your Review</label>
+                                    <textarea name="text" rows="5" id="input-review" class="form-control"></textarea>
+                                    <div class="help-block"><span class="text-danger">Note:</span> HTML is not translated!</div>
+                                </div>
+                            </div>
+                            <div class="form-group required">
+                                <div class="col-sm-12">
+                                    <label class="control-label">Rating</label>
+                                    &nbsp;&nbsp;&nbsp; Bad&nbsp;
+                                    <input type="radio" name="rating" value="1" />
+                                    &nbsp;
+                                    <input type="radio" name="rating" value="2" />
+                                    &nbsp;
+                                    <input type="radio" name="rating" value="3" />
+                                    &nbsp;
+                                    <input type="radio" name="rating" value="4" />
+                                    &nbsp;
+                                    <input type="radio" name="rating" value="5" />
+                                    &nbsp;Good
+                                </div>
+                            </div>
+                            <div class="buttons clearfix">
+                                <div class="pull-right">
+                                    <button type="button" id="button-review" data-loading-text="Loading..." class="btn btn-primary">Continue</button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+            <h3 class="productblock-title">Əlaqəli məhsullar</h3>
+            <div class="box">
+                <div id="related-slidertab" class="row owl-carousel product-slider">
+
+                    @foreach (var item in Model.Products)
+                    {
+                        <div class="item">
+                            <div class="product-thumb transition">
+                                <div class="image product-imageblock">
+                                    <a href="@Url.Action("Product","Product",new { id=item.Id})"> <img src="~/Areas/Admin/IMAGES/@item.Files.First().Sources" alt="@item.Name" title="@item.Title" class="img-responsive" style="width:100%;height:100%" /> </a>
+                                    <div class="button-group">
+                                        <button type="button" class="wishlist" data-toggle="tooltip" title="Add to Wish List"><i class="fa fa-heart-o"></i></button>
+                                        <button type="button" class="addtocart-btn">İndi al</button>
+
+                                    </div>
+                                </div>
+                                <div class="caption product-detail">
+                                    <h4 class="product-name"><a href="@Url.Action("Product","Product",new { id=item.Id})" title="@item.Title">@item.Name</a></h4>
+                                    <p class="price product-price"> <span class="price-new">@item.Price AZN</span> <span class="price-old">@item.Price</span> <span class="price-tax">No Tax</span> </p>
+                                </div>
+                                <div class="button-group">
+                                    <button type="button" class="wishlist" data-toggle="tooltip" title="Add to Wish List"><i class="fa fa-heart-o"></i></button>
+                                    <button type="button" class="addtocart-btn">İndi al</button>
+
+                                </div>
+                            </div>
+                        </div>
+                    }
+
+
+
+
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+

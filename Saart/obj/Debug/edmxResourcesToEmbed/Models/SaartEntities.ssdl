@@ -1,0 +1,187 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="SaartModel.Store" Alias="Self" Provider="System.Data.SqlClient" ProviderManifestToken="2012" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityContainer Name="SaartModelStoreContainer">
+    <EntitySet Name="Baskets" EntityType="SaartModel.Store.Baskets" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="Categories" EntityType="SaartModel.Store.Categories" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="Customers" EntityType="SaartModel.Store.Customers" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="Files" EntityType="SaartModel.Store.Files" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="Products" EntityType="SaartModel.Store.Products" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="SoldProducts" EntityType="SaartModel.Store.SoldProducts" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="SubCategories" EntityType="SaartModel.Store.SubCategories" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="SubCategoryContext" EntityType="SaartModel.Store.SubCategoryContext" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="sysdiagrams" EntityType="SaartModel.Store.sysdiagrams" store:Type="Tables" Schema="dbo" />
+    <AssociationSet Name="FK__Baskets__Custome__276EDEB3" Association="SaartModel.Store.FK__Baskets__Custome__276EDEB3">
+      <End Role="Customers" EntitySet="Customers" />
+      <End Role="Baskets" EntitySet="Baskets" />
+    </AssociationSet>
+    <AssociationSet Name="FK__Baskets__Product__286302EC" Association="SaartModel.Store.FK__Baskets__Product__286302EC">
+      <End Role="Products" EntitySet="Products" />
+      <End Role="Baskets" EntitySet="Baskets" />
+    </AssociationSet>
+    <AssociationSet Name="FK__SubCatego__Categ__1A14E395" Association="SaartModel.Store.FK__SubCatego__Categ__1A14E395">
+      <End Role="Categories" EntitySet="Categories" />
+      <End Role="SubCategories" EntitySet="SubCategories" />
+    </AssociationSet>
+    <AssociationSet Name="FK__Files__ProductId__2F10007B" Association="SaartModel.Store.FK__Files__ProductId__2F10007B">
+      <End Role="Products" EntitySet="Products" />
+      <End Role="Files" EntitySet="Files" />
+    </AssociationSet>
+    <AssociationSet Name="FK__SoldProdu__Produ__3C69FB99" Association="SaartModel.Store.FK__SoldProdu__Produ__3C69FB99">
+      <End Role="Products" EntitySet="Products" />
+      <End Role="SoldProducts" EntitySet="SoldProducts" />
+    </AssociationSet>
+    <AssociationSet Name="FK__SubCatego__SubCa__24927208" Association="SaartModel.Store.FK__SubCatego__SubCa__24927208">
+      <End Role="SubCategories" EntitySet="SubCategories" />
+      <End Role="SubCategoryContext" EntitySet="SubCategoryContext" />
+    </AssociationSet>
+  </EntityContainer>
+  <EntityType Name="Baskets">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="CustomerId" Type="int" Nullable="true" />
+    <Property Name="ProductId" Type="int" Nullable="true" />
+  </EntityType>
+  <EntityType Name="Categories">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Description" Type="varchar(max)" Nullable="true" />
+  </EntityType>
+  <EntityType Name="Customers">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Name" Type="nvarchar" Nullable="true" MaxLength="25" />
+    <Property Name="Surname" Type="nvarchar" Nullable="true" MaxLength="30" />
+    <Property Name="Phone" Type="nvarchar" Nullable="true" MaxLength="20" />
+    <Property Name="Email" Type="nvarchar" Nullable="true" MaxLength="35" />
+    <Property Name="Password" Type="nvarchar" Nullable="true" MaxLength="25" />
+  </EntityType>
+  <EntityType Name="Files">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="ProductId" Type="int" Nullable="true" />
+    <Property Name="Sources" Type="nvarchar(max)" Nullable="true" />
+  </EntityType>
+  <EntityType Name="Products">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Count" Type="int" Nullable="true" />
+    <Property Name="Price" Type="decimal" Nullable="false" Precision="19" Scale="4" />
+    <Property Name="Gender" Type="nvarchar" Nullable="true" MaxLength="10" />
+  </EntityType>
+  <EntityType Name="SoldProducts">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Count" Type="int" Nullable="true" />
+    <Property Name="ProductId" Type="int" Nullable="true" />
+  </EntityType>
+  <EntityType Name="SubCategories">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="CategoryID" Type="int" Nullable="true" />
+  </EntityType>
+  <EntityType Name="SubCategoryContext">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="LanguageId" Type="int" Nullable="true" />
+    <Property Name="SubCategoryId" Type="int" Nullable="true" />
+    <Property Name="Name" Type="nvarchar" Nullable="true" MaxLength="50" />
+  </EntityType>
+  <EntityType Name="sysdiagrams">
+    <Key>
+      <PropertyRef Name="diagram_id" />
+    </Key>
+    <Property Name="name" Type="nvarchar" Nullable="false" MaxLength="128" />
+    <Property Name="principal_id" Type="int" Nullable="false" />
+    <Property Name="diagram_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="version" Type="int" Nullable="true" />
+    <Property Name="definition" Type="varbinary(max)" Nullable="true" />
+  </EntityType>
+  <Association Name="FK__Baskets__Custome__276EDEB3">
+    <End Role="Customers" Type="SaartModel.Store.Customers" Multiplicity="0..1" />
+    <End Role="Baskets" Type="SaartModel.Store.Baskets" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Customers">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Baskets">
+        <PropertyRef Name="CustomerId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__Baskets__Product__286302EC">
+    <End Role="Products" Type="SaartModel.Store.Products" Multiplicity="0..1" />
+    <End Role="Baskets" Type="SaartModel.Store.Baskets" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Products">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Baskets">
+        <PropertyRef Name="ProductId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__SubCatego__Categ__1A14E395">
+    <End Role="Categories" Type="SaartModel.Store.Categories" Multiplicity="0..1" />
+    <End Role="SubCategories" Type="SaartModel.Store.SubCategories" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Categories">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="SubCategories">
+        <PropertyRef Name="CategoryID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__Files__ProductId__2F10007B">
+    <End Role="Products" Type="SaartModel.Store.Products" Multiplicity="0..1" />
+    <End Role="Files" Type="SaartModel.Store.Files" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Products">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Files">
+        <PropertyRef Name="ProductId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__SoldProdu__Produ__3C69FB99">
+    <End Role="Products" Type="SaartModel.Store.Products" Multiplicity="0..1" />
+    <End Role="SoldProducts" Type="SaartModel.Store.SoldProducts" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Products">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="SoldProducts">
+        <PropertyRef Name="ProductId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__SubCatego__SubCa__24927208">
+    <End Role="SubCategories" Type="SaartModel.Store.SubCategories" Multiplicity="0..1" />
+    <End Role="SubCategoryContext" Type="SaartModel.Store.SubCategoryContext" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="SubCategories">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="SubCategoryContext">
+        <PropertyRef Name="SubCategoryId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+</Schema>

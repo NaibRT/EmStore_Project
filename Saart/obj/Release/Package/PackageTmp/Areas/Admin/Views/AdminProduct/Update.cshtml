@@ -1,0 +1,54 @@
+﻿@model  Saart.Models.Product
+@{
+    ViewBag.Title = "Update";
+    Layout = "~/Areas/Admin/Views/Shared/_AdminLayout.cshtml";
+}
+<h2 style="text-align:center">Məhsulun məlumatlarını dəyiş</h2>
+<form action="~/Admin/AdminProduct/Update" method="post" enctype="multipart/form-data">
+    <div class="form-group">
+        <label for="forName">Məhsulun Adı</label>
+        <input type="text" class="form-control" id="forName" value="@Model.Name" placeholder="" name="Name">
+
+        <label for="forName">Məhsulun Qiyməti</label>
+        <input type="text" class="form-control" id="forPrice" value="@Model.Price" placeholder="" name="Price">
+
+        <label for="forDiscount">Məhsulun Endirimli Faizi</label>
+        <input type="text" class="form-control" id="forDiscount" value="@Model.Discount" placeholder="" name="Discount">
+
+        <label for="forCount">Məhsulun Sayı</label>
+        <input type="text" class="form-control" id="forCount" value="@Model.Count" placeholder="" name="Count">
+
+        <label for="Gender">Cinsi Seçin</label>
+        <select name="Gender" class="form-control" style="padding:0px !important">
+            <option value="Kişi" label="Kişi">Kişi</option>
+            <option value="Qadın" label="Qadın">Qadın</option>
+            <option value="Uniseks" label="Uniseks">Uniseks</option>
+        </select>
+        <label for="forName">Məhsul Haqqında</label>
+        <input type="text" class="form-control" id="forDescription" value="@Model.Description" placeholder="" name="Description">
+        <label for="SubCategoryId">Məhsulun Alt Kateqoriyasını Seçin</label>
+        <select name="SubCategoryId" class="form-control " style="padding:0px !important">
+
+            @foreach (var item in ViewBag.SubCategories)
+            {
+
+                <option value="@item.Id">@item.Name</option>
+            }
+        </select>
+
+        <label for="forName">Məhsulun Başlığı</label>
+        <input type="text" class="form-control" id="forTitle" value="@Model.Title" name="Title">
+        <input type="hidden" value="@Model.Id" name="Id" />
+        <div class="input-group mb-3">
+            <div class="input-group-prepend">
+                <span class="input-group-text">Şəkil Yüklə</span>
+            </div>
+            <div class="custom-file">
+                <input type="file" class="custom-file-input" id="inputGroupFile01" name="img" value="@Model.Files.FirstOrDefault().Sources" multiple>
+            </div>
+        </div>
+
+    </div>
+    <button type="submit" class="btn btn-primary">Məhsulu Yenilə!</button>
+</form>
+

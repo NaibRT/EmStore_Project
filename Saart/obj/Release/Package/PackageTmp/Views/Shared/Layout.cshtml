@@ -1,0 +1,125 @@
+﻿@{
+
+    Layout = null;
+    var db = new Saart.Models.SaartEntities1();
+    var item = db.AdminInformations.Where(x => x.Name == "Instagram").Single();
+    var itemNum = db.AdminInformations.Where(x => x.Name == "Mobile").Single();
+}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>: : EMstore : :</title>
+    <meta http-equiv="content-type" content="text/html;charset=utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="e-commerce site well design with responsive view." />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+
+    <link href="~/Content/bootstrap.css" rel="stylesheet" />
+    <link href="~/Content/bootstrap/css/bootstrap.min.css" rel="stylesheet" />
+    <link href="~/Content/css/style.css" rel="stylesheet" />
+    <link href="~/Content/css/stylesheet.css" rel="stylesheet" />
+    <link href="~/Content/owl-carousel/owl.transitions.css" rel="stylesheet" />
+    <link href="~/Content/owl-carousel/owl.carousel.css" rel="stylesheet" />
+    <link href="~/Content/site.css" rel="stylesheet" />
+    <link href="~/Content/css/responsive.css" rel="stylesheet" />
+    <link href="~/Content/image/brand" rel="icon" type="image/x-icon"/>
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.3/css/all.css">
+    <link href="~/Content/font-awesome/css/font-awesome.min.css" rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700" rel="stylesheet">
+
+    <link href="~/Content/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css" />
+
+    <script type="~/Content/text/javascript" src="javascript/jstree.min.js"></script>
+    <script type="~/Content/text/javascript" src="javascript/template.js"></script>
+
+
+</head>
+<body class="blog col-2">
+    <div class="preloader loader" style="display: block; background:black;"> <img src="~/Content/image/loader.gif" alt="#" /></div>
+    <header>
+        <div class="header-top">
+            <div class="container">
+                <div class="row">
+                    <div class="col-sm-12">
+                        <div class="top-left pull-left">
+
+                            @Html.Partial("InstagramPratialView", item)
+
+                        </div>
+                        <div class="top-right pull-right">
+                            <div id="top-links" class="nav pull-right">
+
+                                <div class="search-box">
+                                    @*<input class="searchbox" id="input-sort" placeholder="Məhsullara görə axtar.." type="text">*@
+                                    <input type="text" name="name" id="sort-input" placeholder="  Məhsul axtar..." />
+                                    <button class="search-btn" name="btnSearch"><i class="fa fa-search"></i></button>
+                                    <div id="searchItem">
+
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="container">
+            <div class="header-inner">
+                <div class="col-sm-4 col-xs-6 header-left">
+                    @Html.Partial("NumberPartialView", itemNum)
+                </div>
+                <div class="col-sm-4 col-xs-12 header-middle">
+                    <div class="header-middle-top">
+                        <div id="logo"> <a href="@Url.Action("Index","Index")"><img src="~/Content/image/logomake.png" title="E-Commerce" alt="E-Commerce" class="img-responsive" /></a> </div>
+                    </div>
+                </div>
+                <div class="col-sm-4 col-xs-12 header-right" id="headerRight">
+
+                </div>
+            </div>
+
+        </div>
+    </header>
+    @RenderBody()
+    <footer>
+        <div class="container">
+            <hr>
+            <div class="row footer-row">
+                <div class="col-sm-3 footer-block">
+                    <h5 class="footer-title">Məlumat</h5>
+                    <ul class="list-unstyled ul-wrapper">
+                        <li><a href="@Url.Action("About","About")">Haqqımızda</a></li>
+                        <li><a href="@Url.Action("Checkout","Checkout")">Ödəniş Məlumatları</a></li>
+                        <li><a href="#">Gizlilik Politikası</a></li>
+                        <li><a href="#">Şərtlər &amp; Qaydalar</a></li>
+                        <li><a href="#">Qaytarma</a></li>
+                        <li><a href="#">Xəritə Ünvanımız</a></li>
+                        <li><a href="#">Seçilmişlər Listi</a></li>
+                    </ul>
+                </div>
+                <div class="col-sm-3 footer-block">
+                    <div class="content_footercms_right">
+                        <div class="footer-contact">
+                            <h5 class="contact-title footer-title">Bizimlə Əlaqə</h5>
+                            @Html.Partial("EmailPartialView", db.AdminInformations.ToList())
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+        <a id="scrollup" style="display:inline;">Scroll</a>
+    </footer>
+
+    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/bootstrap")
+    @Scripts.Render("~/bundles/js")
+    @Scripts.Render("~/bundles/owlJs")
+    @RenderSection("cardScript", required: false)
+    @RenderSection("indexScript", required: false)
+</body>
+</html>
+

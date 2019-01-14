@@ -1,0 +1,57 @@
+﻿@model IEnumerable<Saart.Models.Product>
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Areas/Admin/Views/Shared/_AdminLayout.cshtml";
+}
+
+<h2 style="text-align:center">Satılmış Məhsullar</h2>
+
+<table class="table table-hover table-bordered " style="text-align:center">
+
+    <a class="btn btn-info" style="text-align:center;margin-bottom: 20px;margin-top: 4px" href=@Url.Action("Create","Product")>Məhsul Yarat</a>
+
+    <thead>
+        <tr>
+            <th scope="col" style="background:#336cc7">ID</th>
+            <th scope="col" style="background:#336cc7">Şəkil</th>
+            <th scope="col" style="background:#336cc7">Ad</th>
+            <th scope="col" style="background:#336cc7">Başlıq</th>
+            <th scope="col" style="background:#336cc7">Qiymət</th>
+            <th scope="col" style="background:#336cc7">Stok</th>
+            <th scope="col" style="background:#336cc7">Sayı</th>
+            <th scope="col" style="background:#336cc7">Cins</th>
+            <th scope="col" style="background:#336cc7">Haqqında</th>
+            <th scope="col" style="background:#336cc7">Alt kateqoriyası</th>
+           
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+        <tr>
+
+            <td>@item.Id</td>
+            <td>
+                @if (item.Files.FirstOrDefault() != null)
+                {
+                    <img src="~/Areas/Admin/IMAGES/@item.Files.First().Sources" style="width:60px" height:50px" />
+
+                }
+            </td>
+            <td>@item.Name</td>
+            <td>@item.Title</td>
+            <td>@item.Price</td>
+            <td>@item.Count</td>
+            <td>@item.SoldCount</td>
+            <td>@item.Gender</td>
+            <td>@item.Description</td>
+            <td>@item.SubCategory.Name</td>
+
+            @*<td><a class="btn btn-danger" href=@Url.Action("Delete","Product",new { id = item.Id })>Delete</a></td>*@
+        </tr>
+        }
+
+
+    </tbody>
+</table>
+

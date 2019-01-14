@@ -1,0 +1,31 @@
+﻿@model Saart.Models.SubCategory
+@{
+    Layout = "~/Areas/Admin/Views/Shared/_AdminLayout.cshtml";
+}
+
+<form action="~/Admin/AdminSubCategory/Update" method="post" enctype="multipart/form-data">
+    <div class="form-group">
+        <label for="forName">Alt Kateqoriya Adı</label>
+        <input type="text" class="form-control" id="forName" placeholder="" value="@Model.Name" name="Name">
+        <input type="hidden" value="@Model.Id" name="id"/>
+        <label for="SubCategoryId">Kateqoriya Seç</label>
+        <select name="CategoryId" class="form-control " style="padding:0px !important">
+
+            @foreach (var item in ViewBag.Categories)
+            {
+                <option value="@item.Id">@item.Name</option>
+            }
+        </select>
+
+       
+
+
+
+    </div>
+    <button type="submit" class="btn btn-info">Yenilə !</button>
+    <button class="btn btn-link">
+        <a href="@Url.Action("Index","AdminSubCategory")">Alt kateqoriya səhifəsinə qayıt</a>
+    </button>
+
+
+</form>

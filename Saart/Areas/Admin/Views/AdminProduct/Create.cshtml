@@ -1,0 +1,59 @@
+﻿@model IEnumerable<Saart.Models.SubCategory>
+@{
+    ViewBag.Title = "Create";
+    Layout = "~/Areas/Admin/Views/Shared/_AdminLayout.cshtml";
+}
+
+<form action="~/Admin/AdminProduct/Create" method="post" enctype="multipart/form-data">
+    <div class="form-group">
+        <label for="forName">Məhsulun Adı</label>
+        <input type="text" class="form-control" id="forName" placeholder="" name="Name">
+
+        <label for="forPrice">Məhsulun Qiyməti</label>
+        <input type="text" class="form-control" id="forPrice" placeholder="" name="Price">
+
+        <label for="forDiscount">Məhsulun Endirim Faizi</label>
+        <input type="text" class="form-control" id="forDiscount" placeholder="" name="Discount">
+
+        <label for="forCount">Məhsulun Sayı</label>
+        <input type="text" class="form-control" id="forCount" placeholder="" name="Count">
+
+        <label for="Gender">Cinsi Seç</label>
+        <select name="Gender" class="form-control" style="padding:0px !important">
+            <option value="Kişi" label="Kişi">Kişi</option>
+            <option value="Qadın" label="Qadın">Qadın</option>
+            <option value="Uniseks" label="Uniseks">Uniseks</option>
+        </select>
+        <label for="forName">Məhsul Haqqında</label>
+        <input type="text" class="form-control" id="forDescription" placeholder="" name="Description">
+        <label for="SubCategoryId">Məhsulun Alt Kateqoriyasını Seç</label>
+        <select name="SubCategoryId" class="form-control " style="padding:0px !important">
+
+            @foreach (var item in Model)
+            {
+                <option value="@item.Id">@item.Name</option>
+            }
+        </select>
+
+        <label for="forTitle">Məhsulun Başlığı</label>
+        <input type="text" class="form-control" id="forTitle" placeholder="" name="Title">
+
+        <div class="input-group mb-3">
+            <div class="input-group-prepend">
+                <span class="input-group-text">Şəkil yüklə</span>
+            </div>
+            <div class="custom-file">
+                <input type="file" class="custom-file-input" id="inputGroupFile01" name="img" multiple>
+
+            </div>
+        </div>
+
+    </div>
+    <button type="submit" class="btn btn-info">Məhsulu Yarat!</button>
+    <button class="btn btn-link">
+        <a href="@Url.Action("Index","AdminProduct")">Əsas səhifəyə qayıt</a>
+    </button>
+        
+    
+</form>
+

@@ -1,0 +1,19 @@
+﻿@model Saart.Models.Category
+@{
+    ViewBag.Title = "Update";
+    Layout = "~/Areas/Admin/Views/Shared/_AdminLayout.cshtml";
+}
+
+<form action="~/Admin/AdminCategory/Update" method="post">
+    <div class="form-group">
+        <label for="exampleInputEmail1">Kateqoriya Adı</label>
+        <input type="text" class="form-control" placeholder="" name="Name" value="@Model.Name">
+    </div>
+
+    <button type="submit" class="btn btn-primary">Kateqoriyanı Yenilə !</button>
+   
+        <a href="@Url.Action("Index","AdminCategory")">Kateqoriya səhifəsinə qayıt</a>
+    
+</form>
+
+

@@ -1,0 +1,141 @@
+﻿@model Saart.ViewModel.CardViewModel
+@{
+    ViewBag.Title = "Checkout";
+    Layout = "~/Views/Shared/Layout.cshtml";
+}
+
+<div class="container">
+    <ul class="breadcrumb">
+        <li><a href="@Url.Action("Index","Index")"><i class="fa fa-home"></i></a></li>
+        <li><a href="@Url.Action("Card","Card")">Alış-veriş kartı</a></li>
+        <li><a href="@Url.Action("Checkout","Checkout")">Yoxla</a></li>
+    </ul>
+    <div class="row">
+        <div id="column-left" class="col-sm-3 hidden-xs column-left">
+            <div class="column-block">
+                <div class="columnblock-title">Kateqoriyalar</div>
+
+                <div class="category_block">
+                    <ul class="box-category treeview-list treeview">
+                        @foreach (var item in Model.Categories)
+                        {
+                            <li>
+                                <div class="hitarea">
+                                    <i class="fa fa-plus hit-fa" style="cursor:pointer"></i>
+                                </div>
+                                <a class="activSub" data-id="@item.Id" style="cursor:pointer" href="@Url.Action("PostIndex","Index",new {id=item.Id,name="cat" })">@item.Name</a>
+                                <ul style="display: none;">
+                                    @foreach (var items in item.SubCategories)
+                                    {
+                                        <li>
+                                            <a  data-id="@items.Id" style="cursor:pointer;padding-left:15px" href="@Url.Action("PostIndex","Index",new {id=items.Id,name="subcat" })">@items.Name</a>
+                                        </li>
+                                    }
+                                </ul>
+
+                            </li>
+                        }
+
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-9" id="content">
+            <h1>Sizin sifarişiniz</h1>
+            <div id="accordion" class="panel-group">
+
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        <h4 class="panel-title"><a class="accordion-toggle collapsed" data-parent="#accordion" data-toggle="collapse" href="#collapse-payment-address" aria-expanded="false">Step 1: Sifarişin qeydiyyatı <i class="fa fa-caret-down"></i></a></h4>
+                    </div>
+                    <div id="collapse-payment-address" role="heading" class="panel-collapse collapse in" aria-expanded="true" style="">
+                        <div class="panel-body">
+                            <form action="~/Checkout/Checkout" method="post" class="checkoutForm" name="validate" id="validateForm">
+                                <label for="Name">Adınız</label>
+                                <input type="text" name="Name" value="" class="userName" required />
+                                <label for="Name" class="nameValid" style="color:red"></label>
+
+                                <label for="Surname">Soyadınız</label>
+                                <input type="text" name="Surname" value="" class="userSurname" required />
+                                <label for="Surname" class="surnameValid" style="color:red"></label>
+
+                                <label for="Phone">Əlaqə nömrəniz</label>
+                                <input type="tel" name="Phone" value="" class="userNumber" required step="1" min="1"   />
+                                <label for="Phone" class="phoneValid" style="color:red"></label>
+
+                                <label for="Address">Ünvanınız</label>
+                                <input type="text" name="Address" value="" class="userAdress" required />
+                                <label for="Address" class="addressValid" style="color:red"></label>
+
+
+                            </form>
+                         
+
+                        </div>
+                    </div>
+                </div>
+
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        <h4 class="panel-title"><a class="accordion-toggle" data-parent="#accordion" data-toggle="collapse" href="#collapse-checkout-confirm" aria-expanded="true">Step 2: Seçilmiş məhsullar <i class="fa fa-caret-down"></i></a></h4>
+                    </div>
+                    <div id="collapse-checkout-confirm" role="heading" class="panel-collapse collapse in" aria-expanded="true" style="">
+                        <div class="panel-body">
+                            <div class="table-responsive">
+                                <table style="font-size:12px" class="table table-hover text-center">
+                                    <thead>
+                                        <tr>
+                                            
+                                            <td style="color:black;font-weight:bold" class="text-left">Məhsulun Adı</td>
+                                            <td style="color:black;font-weight:bold" class="text-center">Sayı</td>
+                                            <td style="color:black;font-weight:bold" class="text-center">Cəmi</td>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+
+                                        @if (Model.Products != null && Model.Products.Count > 0)
+                                        {
+                                            foreach (var item in Model.Products)
+                                            {
+                                        <tr>
+                                            <td style="color:black;font-weight:bold" class="text-left"><a href="@Url.Action("Product","Product",new { id=item.Id})" style="color:black;font-weight:bold">@item.Name</a></td>
+                                            <td style="width:50px!important;" class="text-center"><input type="number" data-id="@item.Id" class="itemQuantity" oninput="validity.valid||(value='')" ; value="1" min=1 max="@item.Count" size="4" style="width:40px" /></td>
+                                            @if (item.Discount == 0)
+                                            {
+                                                <td style="color:black;font-weight:bold" class="text-center itemPrice"><span data-price="@item.Price.">@item.Price</span> <span> AZN</span></td>
+                                            }
+                                            else
+                                            {
+                                                <td style="color:black;font-weight:bold" class="text-center itemPrice"><span data-price="@item.Discount.ToString().Replace(',','.')">@item.Discount.ToString().Replace(',','.')</span> <span> AZN</span></td>
+                                            }
+
+
+                                        </tr>
+                                             
+                                            }
+                                        }
+
+
+                                    </tbody>
+
+                                </table>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+                <div class="buttons">
+                    <div class="pull-right">
+                        <input type="button" data-loading-text="Yüklənir..." class="btn btn-primary confirmOrder" id="button-confirm" value="Təsdiqlə">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+
+

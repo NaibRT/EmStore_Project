@@ -1,0 +1,127 @@
+/* Write your custom CSS here */
+.page-sidebar {
+    background: #192231 !important;
+}
+
+.logo-box {
+    background: transparent !important;
+}
+
+.col-md-2 {
+    background: transparent !important;
+}
+
+.col-md-10 {
+    /*padding-right: 0;
+    padding-left:0;*/
+    width: 50%;
+}
+
+html, body {
+    padding: 0;
+    margin: 0;
+    height: 100vh;
+}
+
+body {
+    /*background-image: url('../images/bg/375916.jpg') !important;*/
+    /*background-attachment: fixed !important;*/
+    /*background-position: center !important;
+    background-repeat: no-repeat !important;
+    background-size: cover !important;*/
+    background: #e52d27; /* fallback for old browsers */
+    background: -webkit-linear-gradient(to right, #b31217, #e52d27); /* Chrome 10-25, Safari 5.1-6 */
+    background: linear-gradient(to right, #b31217, #e52d27); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+}
+
+th {
+    text-align: center;
+    vertical-align: middle !important;
+}
+
+#--custom-table {
+    text-align: center !important;
+    position: relative !important;
+    left: -9% !important;
+    transform: translate(0%,1%) !important;
+}
+
+td {
+    vertical-align: middle !important;
+}
+
+.pace-done {
+    background: #41295a; /* fallback for old browsers */
+    background: -webkit-linear-gradient(to right, #2F0743, #41295a); /* Chrome 10-25, Safari 5.1-6 */
+    background: linear-gradient(to right, #2F0743, #41295a); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+}
+
+button {
+    background: transparent !important;
+}
+
+
+.table-hover tbody tr {
+    transition: all 1s ease !important;
+}
+
+.table-hover tbody tr {
+    transition: all 1s ease !important;
+}
+
+    .table-hover tbody tr:hover td, .table-hover tbody tr:hover th {
+        background-color: #336cc7 !important;
+        transition: all .5s ease !important;
+    }
+
+thead {
+    background: #336cc7 !important;
+}
+
+/*.logo-middle{
+    background-image: url("../../../Content/image/logo.png");
+    background-position:center;
+    background-repeat:no-repeat;
+    background-size:cover;
+    max-width:100%;
+    height:100vh;
+    text-align:center;
+    z-index:99;
+
+    
+}*/
+
+.--custom input[type=text]:not(:last-child) {
+    margin-bottom: 15px;
+}
+
+.--custom button {
+    margin-top: 10px;
+}
+
+.logo-wrapper {
+    padding: 10px;
+}
+
+    .logo-wrapper img {
+        color: white;
+    }
+
+form {
+    margin: 0;
+    padding: 0;
+}
+
+.--main {
+    display: grid;
+    grid-template-columns: 100%;
+    grid-row-gap: 10px;
+}
+
+
+
+userNumber,input[type=number]::-webkit-inner-spin-button,
+input[type=number]::-webkit-outer-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}

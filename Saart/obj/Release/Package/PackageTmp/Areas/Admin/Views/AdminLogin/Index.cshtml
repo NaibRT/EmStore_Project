@@ -1,0 +1,38 @@
+﻿@model IEnumerable<Saart.Models.Product>
+@{
+    ViewBag.Title = "::Admin Login::";
+}
+<link href="~/AdminContent/assets/plugins/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+<link href="~/AdminContent/assets/plugins/font-awesome/css/font-awesome.min.css" rel="stylesheet">
+<link href="~/AdminContent/assets/plugins/icomoon/style.css" rel="stylesheet">
+<link href="~/AdminContent/assets/plugins/waves/waves.min.css" rel="stylesheet">
+<link href="~/AdminContent/assets/plugins/uniform/css/default.css" rel="stylesheet">
+<link href="~/AdminContent/assets/plugins/switchery/switchery.min.css" rel="stylesheet" />
+<link href="~/AdminContent/assets/plugins/nvd3/nv.d3.min.css" rel="stylesheet">
+<link rel="icon" type="image/png" href="~/AdminContent/assets/Table_Responsive_v2/images/icons/favicon.ico" />
+<link rel="stylesheet" type="text/css" href="vendor/bootstrap/css/bootstrap.min.css">
+<link rel="stylesheet" type="text/css" href="fonts/font-awesome-4.7.0/css/font-awesome.min.css">
+<link href="~/AdminContent/assets/css/flatifytheme.min.css" rel="stylesheet">
+<link href="~/AdminContent/assets/css/custom.css" rel="stylesheet">
+
+
+<div class="col-md-12 text-center --main">
+
+    <div class="logo-wrapper">
+        <img src="~/Content/image/logo.png" />
+    </div>
+
+    <form action="~/Admin/AdminLogin/Index" method="post">
+        <div class="form-group --custom">
+            <input type="text" name="username" placeholder="Username" class="form-control userInp" />
+            <input type="password" name="password" placeholder="Password" class="form-control passInp" />
+            <button type="submit" class="btn btn-info subBtn">Submit</button>
+        </div>
+        <div class="clearfix"></div>
+    </form>    
+
+</div>
+
+
+
+

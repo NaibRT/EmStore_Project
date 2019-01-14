@@ -1,0 +1,58 @@
+﻿@model  IEnumerable<Saart.Models.Category>
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Areas/Admin/Views/Shared/_AdminLayout.cshtml";
+}
+
+<table class="table table-hover table-bordered" style="text-align:center">
+    @Html.ActionLink("Kateqoriya Yarat", "Create", "AdminCategory", new { @class = "btn btn-primary" })
+    <thead>
+        <tr>
+            <th scope="col">ID</th>
+            <th scope="col">Adı</th>
+            <th scope="col">Yenilə</th>
+            <th scope="col">Status</th>
+
+
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+
+                <td>@item.Id</td>
+
+                <td>@item.Name</td>
+
+                <td>
+                    <button class="btn btn-info">
+                        @Html.ActionLink("Yenilə", "Update", "AdminCategory", new { id = item.Id }, false)
+                    </button>
+
+                </td>
+                <td>
+                    @if (item.Status == true)
+                    {
+                        <button class="btn btn-primary">
+                            @Html.ActionLink("Aktivdir", "Delete", "AdminCategory", new { id = item.Id }, false)
+                        </button>
+                    }
+                    else
+                    {
+                        <button class="btn btn-danger">
+                            @Html.ActionLink("Aktiv Deyil", "Delete", "AdminCategory", new { id = item.Id }, false)
+                        </button>
+                    }
+
+
+                </td>
+
+            </tr>
+        }
+
+
+    </tbody>
+</table>
+
+

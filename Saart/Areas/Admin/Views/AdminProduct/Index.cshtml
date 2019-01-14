@@ -1,0 +1,84 @@
+﻿@model IEnumerable<Saart.Models.Product>
+
+@{
+    Layout = "~/Areas/Admin/Views/Shared/_AdminLayout.cshtml";
+}
+
+<table class="table table-hover table-bordered " id="--custom-table">
+
+    <a class="btn btn-info" style="text-align:center;margin-bottom: 20px;margin-top: 4px" href=@Url.Action("Create","AdminProduct")>Məhsul Yarat</a>
+
+    <thead>
+        <tr>
+            <th scope="col" style="background:#336cc7">ID</th>
+            <th scope="col" style="background:#336cc7">Şəkil</th>
+            <th scope="col" style="background:#336cc7">Ad</th>
+            <th scope="col" style="background:#336cc7">Başlıq</th>
+            <th scope="col" style="background:#336cc7">Qiyməti</th>
+            <th scope="col" style="background:#336cc7">Endirimli Qiyməti</th>
+            <th scope="col" style="background:#336cc7">Stok</th>
+            <th scope="col" style="background:#336cc7">Cins</th>
+            <th scope="col" style="background:#336cc7">Haqqında</th>
+            <th scope="col" style="background:#336cc7">Kateqoriya</th>
+            <th scope="col" style="background:#336cc7">Alt Kateqoriya</th>
+            <th scope="col" style="background:#336cc7">Status</th>
+            <th scope="col" style="background:#336cc7">Yenilə</th>
+            <th scope="col" style="background:#336cc7">Sil</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+        <tr>
+
+            <td>@item.Id</td>
+            <td>
+                @if (item.Files.FirstOrDefault() != null)
+                {
+                    <img src="~/Areas/Admin/IMAGES/@item.Files.First().Sources" style="width:60px" height:50px" />
+
+                }
+            </td>
+            <td>@item.Name</td>
+            <td>@item.Title</td>
+            <td>@item.Price man</td>
+            @if (item.Discount == 0 || item.Discount == null)
+            {
+                <td>Yoxdur</td>
+            }
+            else
+            {
+                <td>@item.Discount man</td>
+            }
+
+            <td>
+                @if (item.Count > 0)
+                {
+                <span style="color:Highlight">@item.Count</span>
+                }
+                else
+                {
+                <span style="color:red" >Boş</span>
+                }
+            </td>
+            <td>@item.Gender</td>
+            <td>@item.Description</td>
+            <td>@item.SubCategory.Category.Name</td>
+            <td>@item.SubCategory.Name</td>
+            @if (item.Status == true)
+            {
+                <td><a class="btn btn-primary" href=@Url.Action("Active_DeActive_Product","AdminProduct",new { id = item.Id })>Aktivdir</a></td>
+            }
+            else
+            {
+                <td><a class="btn btn-danger" href=@Url.Action("Active_DeActive_Product","AdminProduct",new { id = item.Id })>Aktiv deyil</a></td>
+            }
+
+            <td>
+                <a class="btn btn-info" href=@Url.Action("Update","AdminProduct",new { id = item.Id })>Yenilə</a>
+            </td>
+            <td><a class="btn btn-danger" href=@Url.Action("Delete","AdminProduct",new { id = item.Id })>Sil</a></td>
+        </tr>
+        }
+    </tbody>
+</table>

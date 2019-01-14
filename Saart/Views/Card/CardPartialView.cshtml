@@ -1,0 +1,103 @@
+﻿@model List<Saart.Models.Product>
+
+
+@if (Model != null && Model.Count() > 0)
+{
+    decimal total = 0;
+<div class="col-sm-9" id="content">
+    <h1>Alışveriş kartı</h1>
+
+    <div class="table-responsive">
+        <table style="font-size:12px" class="table table-hover text-center">
+            <thead>
+                <tr>
+                    <td style="color:black;font-weight:bold">Şəkil</td>
+                    <td style="color:black;font-weight:bold">Məhsulun adı</td>
+                    <td style="color:black;font-weight:bold">Qiyməti</td>
+                   <td></td>
+                </tr>
+            </thead>
+            <tbody>
+
+
+
+                @foreach (var item in Model)
+                {
+                <tr>
+                    <td style="width:90px;height:80px"><a href="@Url.Action("Product", "Product",new { id=item.Id})" style="width:90px;height:80px"><img style="width:90px;height:80px" class="img-thumbnail" title="@item.Title" alt="@item.Title" src="~/Areas/Admin/IMAGES/@item.Files.First().Sources"></a></td>
+                    @*<td><a href="@Url.Action("Product", "Product",new { id=item.Id})"></a>@item.Description</td>*@
+                    <td style="color:black!important;font-weight:bold">@item.Name</td>
+                    @if (item.Discount != 0 && item.Price != item.Discount)
+                    {
+                       total +=Convert.ToDecimal(item.Discount);
+                    <td style="color:black!important;font-weight:bold">@item.Discount</td>
+                    }
+                    else
+                    {
+                        total += item.Price;
+                    <td style="color:black!important;font-weight:bold">@item.Price</td>
+                    }
+                    <td>
+                        <button class="btn btn-danger " id="removeSelectedItem" data-id="@item.Id"><i class="fa fa-times-circle"></i></button>
+
+                    </td>
+
+                </tr>
+                    
+                }
+
+
+
+
+            </tbody>
+        </table>
+    </div>
+
+    <br>
+
+
+    <div class="row">
+        <div class="col-sm-4 col-sm-offset-8">
+            <table class="table table-bordered">
+                <tbody>
+                    <tr>
+                        <td class="text-right"><strong>Cəmi:</strong></td>
+                        <td class="text-right">@total AZN</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <div class="buttons">
+        <div class="pull-left" style="float:right;margin-left:0px"><a class="btn btn-default" href="@Url.Action("Index", "Index")">Alış-verişə davam et</a></div>
+        <div class="pull-right"><a class="btn btn-primary" href="@Url.Action("Checkout", "Checkout")">Sifariş Et</a></div>
+    </div>
+</div>
+        }
+        else
+        {
+        <h1 style="text-align:center;color:red">Səbətdə məhsul yoxdur.</h1>
+        }
+
+        <script>
+            $("#removeSelectedItem").click(function () {
+                var Id = $(this).data("id");
+                $.ajax({
+                    url: "/Card/CardPartialView/",
+                    type: "POST",
+                    data: { id: Id },
+                    success: function (response) {
+                        console.log(response);
+                        if (response !== null) {
+                            $("#cardProduct").html(response);
+                        }
+                        else {
+                            console.log("errori,errori,errori");
+                        }
+                    }
+
+                });
+
+            });
+        </script>      
+        
